@@ -41,3 +41,6 @@ coverage.xml
 docs/_build/
 
 db.sqlite3
+
+dump.sql
+dump.zip
