@@ -44,3 +44,5 @@ db.sqlite3
 
 dump.sql
 dump.zip
+
+postgresql_data/

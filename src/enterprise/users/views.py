@@ -11,7 +11,7 @@ from enterprise.users.serializers import CompanySerializer, JobSerializer, UserS
 class UsersV1ListViewSet(mixins.ListModelMixin, GenericViewSet):
     serializer_class = UserSerializer
     pagination_class = CursorPagination
-    queryset = User.objects.all().order_by("last_name")
+    queryset = User.objects.all()
 
     filter_backends = (filters.SearchFilter,)
 
@@ -34,17 +34,17 @@ class UsersV2ListViewSet(mixins.ListModelMixin, GenericViewSet):
             F('second_name'),
             output_field=CharField(),
         ),
-    ).all()
+    ).all().order_by("fio")
 
     filter_backends = (filters.SearchFilter,)
 
     search_fields = (
         "=id",
-        "^first_name",
-        "^last_name",
+        "first_name",
+        "last_name",
         "fio",
         "^phone_number",
-        "^email",
+        "email",
         "company__title",
         "job__title",
     )
@@ -69,10 +69,10 @@ class UsersV3ListViewSet(mixins.ListModelMixin, GenericViewSet):
     search_fields = (
         "=id",
         "^first_name",
-        "^last_name",
+        "last_name",
         "fio",
-        "^phone_number",
-        "^email",
+        "phone_number",
+        "email",
         "company__title",
         "job__title",
     )

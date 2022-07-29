@@ -2,6 +2,18 @@ version: '3.1'
 
 services:
 
+  service:
+    image: fruits/service
+    ports:
+      - 8000:8000
+    environment:
+      DATABASE_HOST: "store"
+      DATABASE_PORT: "5432"
+      DATABASE_USER: "user"
+      DATABASE_PASSWORD: "random"
+    depends_on:
+      - store
+
   store:
     image: postgres:13
     ports:
@@ -9,6 +21,9 @@ services:
     environment:
       POSTGRES_USER: "user"
       POSTGRES_PASSWORD: "random"
+      POSTGRES_DB: "homework"
+    volumes:
+      - ./postgresql_data:/var/lib/postgresql/data
 
   adminer:
     image: adminer
