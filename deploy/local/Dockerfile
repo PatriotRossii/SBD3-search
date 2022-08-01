@@ -20,6 +20,4 @@ ADD src /$app
 
 RUN pip install -r requirements.txt
 
-ADD deploy/local/docker-entrypoint.sh /$app/
-
-CMD ./docker-entrypoint.sh
+CMD python manage.py runserver 0.0.0.0:8000

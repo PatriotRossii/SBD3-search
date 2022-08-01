@@ -1,6 +1,45 @@
 import pytest
 
+
 @pytest.mark.django_db
-def test(user):
-    response = user.get("/users/")
-    assert response.data != [], response.data
+def test():
+    """Показывает время выполнения без SQL запросов"""
+    assert True is True
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    "search",
+    ("Josh", "Иван", "Dunin", "NotFoundValue"),
+)
+def test_v1(user, search):
+    response = user.get(f"/v1/users/?search={search}")
+    assert response.status_code == 200, response.status_code
+    # assert response.data != [], response.status_code
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    "search",
+    ("Josh", "Ivan", "Dunin", "NotFoundValue"),
+)
+def test_v2(user, search):
+    response = user.get(f"/v2/users/?search={search}")
+    assert response.status_code == 200, response.status_code
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    "search",
+    ("Иван", "Сергеевич", "Иванова"),
+)
+def test_v2_ru(user, search):
+    response = user.get(f"/v2/users/?search={search}")
+    assert response.status_code == 200, response.status_code
+
+
+@pytest.mark.django_db
+def test_v3(user):
+    """здесь теста нет, но поймать запросов и разобраться,
+    какие изменения в БД сделать, чтобы его улучшить"""
+    # response = user.get("/v3/users/", params={"search": "Иван"})
+

@@ -25,16 +25,7 @@ class UsersV1ListViewSet(mixins.ListModelMixin, GenericViewSet):
 class UsersV2ListViewSet(mixins.ListModelMixin, GenericViewSet):
     serializer_class = UserSerializer
     pagination_class = CursorPagination  # perfomance issue SHCP-5191
-    queryset = User.objects.annotate(
-        fio=Concat(
-            F('last_name'),
-            Value(' '),
-            F('first_name'),
-            Value(' '),
-            F('second_name'),
-            output_field=CharField(),
-        ),
-    ).all().order_by("fio")
+    queryset = User.objects.all().order_by("last_name")
 
     filter_backends = (filters.SearchFilter,)
 
@@ -42,7 +33,6 @@ class UsersV2ListViewSet(mixins.ListModelMixin, GenericViewSet):
         "=id",
         "first_name",
         "last_name",
-        "fio",
         "^phone_number",
         "email",
         "company__title",

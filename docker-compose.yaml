@@ -11,6 +11,8 @@ services:
       DATABASE_PORT: "5432"
       DATABASE_USER: "user"
       DATABASE_PASSWORD: "random"
+    volumes:
+      - ./src:/app
     depends_on:
       - store
 
@@ -30,3 +32,6 @@ services:
     restart: always
     ports:
       - 8081:8080
+
+
+
