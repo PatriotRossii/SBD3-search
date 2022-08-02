@@ -1,4 +1,4 @@
-import os 
+import os
 
 import pytest
 from rest_framework.test import APIClient
@@ -7,7 +7,6 @@ from django.conf import settings
 
 def make_client():
     client = APIClient()
-
     return client
 
 
