@@ -35,8 +35,6 @@ class UsersV2ListViewSet(mixins.ListModelMixin, GenericViewSet):
         "last_name",
         "^phone_number",
         "email",
-        "company__title",
-        "job__title",
     )
 
 
